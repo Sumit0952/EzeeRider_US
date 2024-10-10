@@ -1,26 +1,72 @@
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import { useNavigation } from '@react-navigation/native';
+import MapView, { Marker, Polyline } from 'react-native-maps';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const Header = () => {
-  return (
-    <View style={styles.header}>
-      {/* Menu Icon */}
-      <TouchableOpacity style={styles.menu}>
-        <EvilIcons name='navicon' size={30} color='#000' />
-      </TouchableOpacity>
 
-      {/* Search Bar with Search Icon Inside */}
-      <View style={styles.searchContainer}>
-        <EvilIcons name='search' size={20} color='#888' style={styles.searchIcon} />
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search"
-          placeholderTextColor="#888"
-        />
-      </View>
-    </View>
-  )
+  const [state, setState] = useState({
+    picupCords: {
+      latitude: null, // Initialize without hardcoded values
+      longitude: null,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    },
+    droplocationCords: null, // No initial destination
+  });
+
+  const { picupCords, droplocationCords } = state;
+
+
+
+  const onPressLocation = () => {
+    navigation.navigate('CHOOSE', { getCordinates: fetchValue });
+  };
+
+  const fetchValue = (data) => {
+    setState({
+      picupCords: {
+        latitude: data.picupCords.latitude,
+        longitude: data.picupCords.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+      droplocationCords: {
+        latitude: data.droplocationCords.latitude,
+        longitude: data.droplocationCords.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+    });
+  };
+
+
+    const navigation = useNavigation(); // Correct the variable name here
+    const toggleDrawer = () => {
+        navigation.toggleDrawer(); // Call toggleDrawer on navigation
+    }
+  
+    return (
+        <View style={styles.header}>
+            {/* Menu Icon */}
+            <TouchableOpacity style={styles.menu} onPress={toggleDrawer}>
+                <EvilIcons name='navicon' size={30} color='#000' />
+            </TouchableOpacity>
+
+            {/* Search Bar with Search Icon Inside */}
+            <View style={styles.searchContainer}>
+                <EvilIcons name='search' size={20} color='#888' style={styles.searchIcon} />
+                <TextInput
+                    style={styles.searchBar}
+                    placeholder="Search"
+                    placeholderTextColor="#888"
+                    onPress={onPressLocation}
+                />
+            </View>
+        </View>
+    )
 }
 
 export default Header
@@ -31,6 +77,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     paddingVertical: 5,
+    position:'absolute',
+    zIndex:1
+ 
   },
   menu: {
     backgroundColor: '#f2f2f2',
@@ -47,18 +96,18 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     height: 40,
     elevation: 10,
-    position: 'relative', // Important for positioning the search icon
+    position: 'relative',
   },
   searchIcon: {
     position: 'absolute',
-    left: 10,  // Position the icon at the start of the TextInput
+    left: 10,  // Keeps the search icon at the start of the TextInput
     zIndex: 1,
   },
   searchBar: {
     flex: 1,
     height: 40,
-    paddingLeft: 40,  // Add padding to leave space for the search icon
+    paddingLeft: 40,  // Ensure padding for the search icon
     color: '#000',
     borderRadius: 30,
   },
-})
+});
