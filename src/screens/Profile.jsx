@@ -3,8 +3,10 @@ import React from 'react'
 import { colors } from '../utils/colors'
 import { dimension } from '../utils/dimensions'
 import Entypo from 'react-native-vector-icons/Entypo'
+import { useNavigation } from '@react-navigation/native'
 
 const Profile = () => {
+    const navigation = useNavigation();
   return (
     <View style = {styles.container}>
         <View style = {styles.imageContainer}/>
@@ -65,8 +67,8 @@ const Profile = () => {
                     <Text style = {styles.sub}>Required</Text>
 
                 </View>
-                <TouchableOpacity>
-                <Entypo name = 'chevron-right' size = {20} color = {colors.grey1}/>
+                <TouchableOpacity onPress = {() => navigation.navigate('EmerContact')}>
+                <Text style = {{color:colors.belu, }}>Add Contact</Text>
                 </TouchableOpacity>
             </View>
 

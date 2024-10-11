@@ -86,12 +86,14 @@ const CustomDrawerContent = (props) => {
                     icon={() => renderIconWithCircle(FontAwesome, "credit-card-alt", colors.belu, dimension.lg)}
                     labelStyle={styles.labelStyle}
                     style={styles.drawerItem}
+                    onPress ={()=>(navigation.navigate('Payment'))}
                     />
                 <DrawerItem
                     label="History"
                     icon={() => renderIconWithCircle(MaterialCommunityIcons, "clock-time-five", colors.belu, dimension.lg)}
                     labelStyle={styles.labelStyle}
                     style={styles.drawerItem}
+                    onPress ={()=>(navigation.navigate('HelpScreen'))}
                     />
                 <DrawerItem
                     label="Notification"
@@ -111,6 +113,8 @@ const CustomDrawerContent = (props) => {
                     icon={() => renderIconWithCircle(FontAwesome6, "user-group", colors.belu, dimension.lg)}
                     labelStyle={styles.labelStyle}
                     style={styles.drawerItem}
+                    onPress = {() => navigateto.navigate('Refer')}
+                    
                 />
                 <DrawerItem
                     label="Logout"

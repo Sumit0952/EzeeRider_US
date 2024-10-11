@@ -35,7 +35,7 @@ const Settings = () => {
           <Text style={styles.editButton}>Edit</Text>
         </TouchableOpacity>
       <View style={styles.itemContainer}>
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress ={()=>(navigation.navigate('Profile'))}>
           <View style={styles.itemRow}>
           {renderIconWithCircle(Ionicons, "person", colors.belu, 20)}
             <View>
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 16,
     fontWeight: 'bold',
+    color:colors.grey2
   },
   itemSubtitle: {
     fontSize: 14,

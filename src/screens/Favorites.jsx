@@ -5,6 +5,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors } from '../utils/colors';
 import { dimension } from '../utils/dimensions';
+import DeleteLocation from '../components/DeleteLocation';
 
 const Favorites = () => {
   const [addresses, setAddresses] = useState([
@@ -86,13 +87,26 @@ const Favorites = () => {
           <TouchableOpacity onPress={() => editAddress(item)}>
             {renderIconWithCircle(FontAwesome5, 'pen', colors.grey1, 15, '#fff')}
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => deleteAddress(item.id)}>
+          <TouchableOpacity onPress={handleSosPress}>
             {renderIconWithCircle(MaterialCommunityIcons, 'delete', colors.red1, 15, colors.red2)}
           </TouchableOpacity>
         </View>
       </View>
     </View>
   );
+
+  const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
+    const handleSosPress = () => {
+        setIsModalVisible(true); 
+      };
+
+
+    const handleCloseModal = () => {
+        setIsModalVisible(false); 
+      };
+      const handleConfirmSos = () => {
+        deleteAddress(item.id) 
+      };
 
   return (
     <View style={styles.container}>
@@ -133,6 +147,12 @@ const Favorites = () => {
           </View>
         </View>
       </Modal>
+
+      <DeleteLocation
+            isVisible={isModalVisible}
+            onClose={handleCloseModal}
+            onConfirm={handleConfirmSos}
+      />
     </View>
   );
 };
@@ -214,6 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 20,
+    color:colors.grey2
   },
   input: {
     borderWidth: 1,

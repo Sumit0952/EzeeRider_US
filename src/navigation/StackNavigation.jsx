@@ -10,6 +10,10 @@ import Preferences from '../screens/Preferences.jsx';
 import About from '../screens/About.jsx';
 import Favorites from '../screens/Favorites.jsx';
 import Profile from '../screens/Profile.jsx';
+import EmerContact from '../screens/EmergencyContact.jsx';
+import Payments from '../screens/Payments.jsx';
+import Refer from '../screens/Refer.jsx';
+import HelpScreen from '../screens/Help.jsx';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +33,10 @@ const StackNavigation = () => {
               <Stack.Screen name="About" component={About}  options={{headerShown: true}}/>
               <Stack.Screen name="Favorites" component={Favorites}  options={{headerShown: true}}/>
               <Stack.Screen name="Profile" component={Profile}  options={{headerShown: true}}/>
+              <Stack.Screen name="EmerContact" component={EmerContact}  options={{headerShown: true}}/>
+              <Stack.Screen name="Payment" component={Payments}  options={{headerShown: true}}/>
+              <Stack.Screen name="Refer" component={Refer}  options={{headerShown: true}}/>
+              <Stack.Screen name="HelpScreen" component={HelpScreen}  options={{headerShown: true}}/>
               
         </Stack.Navigator>
   
