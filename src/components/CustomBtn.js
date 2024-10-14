@@ -13,6 +13,7 @@ const CustomBtn = ({
         style={[styles.btnStyle, btnStyle]} // Apply button styles
         onPress={onPress}
     >
+        <Text>Lets go</Text>
         
     </TouchableOpacity>
   );

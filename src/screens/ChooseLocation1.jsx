@@ -1,4 +1,4 @@
-import { Button, StyleSheet, View, Alert,  } from 'react-native';
+import { Button, StyleSheet, View, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -12,11 +12,14 @@ const ChooseLocation = (props) => {
   const navigation = useNavigation();
 
   const [state, setState] = useState({
-    pickupAddress: '',          // Store the pickup address
-    destinationAddress: '',      // Store the destination address
-    picupCords: {},
+    pickupAddress: 'Mumbai',     // Set default pickup address to Mumbai
+    destinationAddress: '',       // Store the destination address
+    picupCords: {                 // Default coordinates for Mumbai
+      latitude: 19.0760,
+      longitude: 72.8777,
+    },
     droplocationCords: {},
-    selectedField: 'pickup',     // State to manage field selection
+    selectedField: 'pickup',      // State to manage field selection
     placeholderText: 'Current Location',  // Dynamic placeholder text
   });
 
@@ -57,6 +60,7 @@ const ChooseLocation = (props) => {
       navigation.goBack();
     }
   };
+
   const checkValid = () => {
     if (Object.keys(picupCords).length === 0) {
       showError('Please enter your pickup location');
@@ -100,7 +104,7 @@ const ChooseLocation = (props) => {
           placeholderText={placeholderText}  // Dynamic placeholder based on dropdown selection
           fetchAddress={(lat, lng) => fetchAddressCords(lat, lng, 'pickup')}
           onFocus={() => handleFieldSelection('pickup')}
-          value={pickupAddress}  // Pass the pickup address to the text input
+          value={pickupAddress}  // Default value set to Mumbai
         />
 
         <View style={{ marginBottom: 16 }} />

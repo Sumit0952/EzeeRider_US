@@ -5,43 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-const Header = () => {
-
-  const [state, setState] = useState({
-    picupCords: {
-      latitude: null, // Initialize without hardcoded values
-      longitude: null,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-    droplocationCords: null, // No initial destination
-  });
-
-  const { picupCords, droplocationCords } = state;
-
-
-
-  const onPressLocation = () => {
-    navigation.navigate('CHOOSE', { getCordinates: fetchValue });
-  };
-
-  const fetchValue = (data) => {
-    setState({
-      picupCords: {
-        latitude: data.picupCords.latitude,
-        longitude: data.picupCords.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
-      droplocationCords: {
-        latitude: data.droplocationCords.latitude,
-        longitude: data.droplocationCords.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
-    });
-  };
-
+const Header = ({onSearch}) => {
 
     const navigation = useNavigation(); // Correct the variable name here
     const toggleDrawer = () => {
@@ -62,7 +26,7 @@ const Header = () => {
                     style={styles.searchBar}
                     placeholder="Search"
                     placeholderTextColor="#888"
-                    onPress={onPressLocation}
+                    onFocus={onSearch}
                 />
             </View>
         </View>

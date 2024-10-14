@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, Alert, PermissionsAndroid, StyleSheet, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
+import Geocoder from 'react-native-geocoding';
 
 const CurrentLocationButton = ({ onLocationFetched, selectedField }) => {
   const [loading, setLoading] = useState(false);
@@ -28,8 +29,20 @@ const CurrentLocationButton = ({ onLocationFetched, selectedField }) => {
     Geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        // Call the onLocationFetched function passed as a prop
-        onLocationFetched(latitude, longitude, selectedField);
+
+        // Reverse geocode to get the address
+        Geocoder.from(latitude, longitude)
+          .then((json) => {
+            const address = json.results[0].formatted_address;
+            console.log(`Address for ${selectedField}:`, address);
+
+            // Pass both coordinates and the fetched address to the parent component
+            onLocationFetched(latitude, longitude, address);
+          })
+          .catch((error) => {
+            console.warn('Error with reverse geocoding:', error);
+          });
+
         setLoading(false);
       },
       (error) => {
